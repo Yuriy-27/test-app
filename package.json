@@ -28,7 +28,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .jsx,.js,.tsx,.ts src/",
-    "lint:fix": "eslint --fix .",
+    "lint:fix": "npm run lint -- --fix",
     "format": "prettier --write src/**/*.{js,jsx,ts,tsx,scss,md,json} --config ./.prettierrc",
     "prepare": "husky install"
   },
