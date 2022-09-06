@@ -1,9 +1,15 @@
 {
     "printWidth": 100,
-    "semi": true,
+    "semi": false,
     "singleQuote": true,
     "tabWidth": 4,
     "useTabs": false,
     "trailingComma": "none",
-    "endOfLine": "auto"
+    "endOfLine": "auto",
+    "importOrder": [
+        "^components/(.*)$",
+        "^[./]"
+    ],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true
 }

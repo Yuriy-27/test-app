@@ -1,6 +1,7 @@
-import React from 'react';
-import './App.scss';
-import Counter from './features/Counter/Counter';
+import React from 'react'
+
+import './App.scss'
+import Counter from './features/Counter/Counter'
 
 function App() {
     return (
@@ -9,7 +10,7 @@ function App() {
                 <Counter />
             </header>
         </div>
-    );
+    )
 }
 
-export default App;
+export default App
