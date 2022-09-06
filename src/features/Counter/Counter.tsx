@@ -11,7 +11,7 @@ import {
   selectCount
 } from './counterSlice';
 
-function Counter() {
+const Counter = () => {
   const count = useAppSelector(selectCount);
   const dispatch = useAppDispatch();
   const [incrementAmount, setIncrementAmount] = useState('2');
@@ -70,6 +70,6 @@ function Counter() {
       </div>
     </div>
   );
-}
+};
 
 export default Counter;
