@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
 
+import SignInForm from '../../components/SignInForm/SignInForm.lazy';
 import styles from './LoginPage.module.scss';
 
 const LoginPage: FC = () => (
   <div className={styles.LoginPage} data-testid='LoginPage'>
-    LoginPage Component
+    <SignInForm />
   </div>
 );
 

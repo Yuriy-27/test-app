@@ -1,2 +1,13 @@
 .SignInForm {
+  width: 100%;
+  max-width: 500px;
+  padding: 50px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.FormTitle {
+  font-size: 40px;
+  line-height: 125%;
+  text-align: center;
+  margin-bottom: 24px;
 }
