@@ -1,5 +1,6 @@
 import { Button, Form, Input } from 'antd';
 import React, { FC } from 'react';
+import { Link } from 'react-router-dom';
 
 import styles from './SignInForm.module.scss';
 
@@ -38,12 +39,16 @@ const SignInForm: FC = () => {
         >
           <Input.Password />
         </Form.Item>
-
-        <Form.Item>
-          <Button type='primary' htmlType='submit'>
-            Submit
-          </Button>
-        </Form.Item>
+        <div className={styles.SubmitSection}>
+          <Form.Item className={styles.FormItem}>
+            <Button type='primary' htmlType='submit'>
+              Submit
+            </Button>
+          </Form.Item>
+          <div className='sign-up__link'>
+            Need an account? <Link to='/register'>Sign Up</Link>
+          </div>
+        </div>
       </Form>
     </div>
   );

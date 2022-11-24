@@ -1,6 +1,11 @@
 import { Button, Form, Input } from 'antd';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import React, { FC } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
+import { login } from '../../features/userSlice';
+import { auth } from '../../firebaseConfig';
+import { useAppDispatch } from '../../hooks/redux';
 import styles from './SignUpForm.module.scss';
 
 /* eslint-disable no-template-curly-in-string */
@@ -19,9 +24,39 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
+interface FormValues {
+  name: string;
+  surname: string;
+  email: string;
+  password: string;
+}
+
 const SignUpForm: FC = () => {
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const onFinish = (values: FormValues) => {
+    // console.log('Success:', values);
+    createUserWithEmailAndPassword(auth, values.email, values.password)
+      .then((userAuth) => {
+        console.log(userAuth);
+        // Update the newly created user with a display name and a picture
+        updateProfile(userAuth.user, {
+          displayName: `${values.name} ${values.surname}`
+        });
+        // Dispatch the user information for persistence in the redux state
+        dispatch(
+          login({
+            email: userAuth.user.email,
+            uid: userAuth.user.uid,
+            displayName: `${values.name} ${values.surname}`
+          })
+        );
+        navigate('/');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -77,11 +112,16 @@ const SignUpForm: FC = () => {
           <Input.Password />
         </Form.Item>
 
-        <Form.Item>
-          <Button type='primary' htmlType='submit'>
-            Submit
-          </Button>
-        </Form.Item>
+        <div className={styles.SubmitSection}>
+          <Form.Item className={styles.FormItem}>
+            <Button type='primary' htmlType='submit'>
+              Submit
+            </Button>
+          </Form.Item>
+          <div className='sign-in__link'>
+            Already have an account? <Link to='/login'>Sign In</Link>
+          </div>
+        </div>
       </Form>
     </div>
   );
