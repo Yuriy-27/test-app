@@ -1,12 +1,39 @@
 import { Button, Form, Input } from 'antd';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
+import { login } from '../../features/userSlice';
+import { auth } from '../../firebaseConfig';
+import { useAppDispatch } from '../../hooks/redux';
 import styles from './SignInForm.module.scss';
 
+interface SignInFormValues {
+  email: string;
+  password: string;
+}
+
 const SignInForm: FC = () => {
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const onFinish = (values: SignInFormValues) => {
+    signInWithEmailAndPassword(auth, values.email, values.password)
+      .then((userAuth) => {
+        // console.log(userAuth);
+        // Dispatch the user information for persistence in the redux state
+        dispatch(
+          login({
+            email: userAuth.user.email,
+            uid: userAuth.user.uid,
+            displayName: userAuth.user.displayName
+          })
+        );
+        navigate('/');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -22,12 +49,12 @@ const SignInForm: FC = () => {
         initialValues={{ remember: true }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
-        autoComplete='off'
+        autoComplete='on'
       >
         <Form.Item
-          label='Username'
-          name='username'
-          rules={[{ required: true, message: 'Please input your username!' }]}
+          label='User email'
+          name='email'
+          rules={[{ required: true, message: 'Please input your email!' }]}
         >
           <Input />
         </Form.Item>

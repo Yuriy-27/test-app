@@ -24,7 +24,7 @@ const validateMessages = {
 };
 /* eslint-enable no-template-curly-in-string */
 
-interface FormValues {
+interface SignUpFormValues {
   name: string;
   surname: string;
   email: string;
@@ -35,11 +35,10 @@ const SignUpForm: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const onFinish = (values: FormValues) => {
-    // console.log('Success:', values);
+  const onFinish = (values: SignUpFormValues) => {
     createUserWithEmailAndPassword(auth, values.email, values.password)
       .then((userAuth) => {
-        console.log(userAuth);
+        // console.log(userAuth);
         // Update the newly created user with a display name and a picture
         updateProfile(userAuth.user, {
           displayName: `${values.name} ${values.surname}`
