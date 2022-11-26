@@ -13,11 +13,15 @@ export const userSlice = createSlice({
     },
     logout: (state) => {
       state.user = null;
+    },
+    updateUserDataFromLocalStorage: (state, action) => {
+      state.user = action.payload;
     }
   }
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, updateUserDataFromLocalStorage } =
+  userSlice.actions;
 
 export const selectUser = (state: RootState) => state.user.user;
 

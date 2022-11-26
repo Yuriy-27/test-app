@@ -51,6 +51,14 @@ const SignUpForm: FC = () => {
             displayName: `${values.name} ${values.surname}`
           })
         );
+        localStorage.setItem(
+          'user',
+          JSON.stringify({
+            email: userAuth.user.email,
+            uid: userAuth.user.uid,
+            displayName: userAuth.user.displayName
+          })
+        );
         navigate('/');
       })
       .catch((err) => {
