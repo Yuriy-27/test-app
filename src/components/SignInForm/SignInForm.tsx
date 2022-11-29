@@ -1,4 +1,4 @@
-import { Button, Form, Input } from 'antd';
+import { Button, Checkbox, Form, Input } from 'antd';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import React, { FC } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -50,7 +50,7 @@ const SignInForm: FC = () => {
 
   return (
     <div className={`${styles.SignInForm}`} data-testid='SignInForm'>
-      <div className={`${styles.FormTitle}`}>Sign In</div>
+      <div className={`${styles.FormTitle}`}>LOGIN</div>
       <Form
         name='signIn'
         layout='vertical'
@@ -74,14 +74,23 @@ const SignInForm: FC = () => {
         >
           <Input.Password />
         </Form.Item>
+
+        <Form.Item name='remember' valuePropName='checked'>
+          <Checkbox className={styles.Checkbox}>Remember me</Checkbox>
+        </Form.Item>
+
         <div className={styles.SubmitSection}>
           <Form.Item className={styles.FormItem}>
-            <Button type='primary' htmlType='submit'>
-              Submit
+            <Button
+              className={styles.LoginBtn}
+              type='primary'
+              htmlType='submit'
+            >
+              LOGIN
             </Button>
           </Form.Item>
           <div className='sign-up__link'>
-            Need an account? <Link to='/register'>Sign Up</Link>
+            Need an account? <Link to='/register'>SIGN UP</Link>
           </div>
         </div>
       </Form>

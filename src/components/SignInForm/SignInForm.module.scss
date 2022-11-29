@@ -3,17 +3,56 @@
   max-width: 500px;
   padding: 50px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background-color: #fff;
+  border-radius: 12px;
 }
 
 .FormTitle {
-  font-size: 40px;
+  font-weight: bold;
+  font-size: 32px;
   line-height: 125%;
-  text-align: center;
   margin-bottom: 24px;
+}
+
+.LoginBtn {
+  background-color: #ee5684;
+
+  &:hover {
+    background-color: #ee5684 !important;
+  }
 }
 
 .FormItem {
   margin-bottom: 0;
+}
+
+.Checkbox {
+  :global .ant-checkbox-checked {
+    .ant-checkbox-inner {
+      background-color: #ee5684;
+      border-color: #ee5684;
+    }
+    &:hover {
+      .ant-checkbox-inner {
+        background-color: #ee5684;
+        border-color: #ee5684;
+      }
+    }
+  }
+
+  &:hover {
+    :global .ant-checkbox {
+      .ant-checkbox-inner {
+        border-color: #ee5684;
+      }
+      &.ant-checkbox-checked {
+        .ant-checkbox-inner {
+          border-color: #ee5684;
+          background-color: #ee5684;
+        }
+      }
+    }
+  }
 }
 
 .SubmitSection {
@@ -21,4 +60,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  :global(.sign-up__link) {
+    a {
+      color: #ee5684;
+      font-weight: bold;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 }
