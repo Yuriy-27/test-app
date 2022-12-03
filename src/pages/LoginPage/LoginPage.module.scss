@@ -1,8 +1,14 @@
+@import '../../styles/breakpoints';
+
 .LoginPage {
   width: 100%;
   min-height: 100vh;
+  padding: 0 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #6d9ac4;
+  background-color: var(--auth-bg);
+
+  @media screen and (max-width: ($tablet - 1px)) {
+  }
 }

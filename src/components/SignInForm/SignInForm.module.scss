@@ -1,10 +1,16 @@
+@import '../../styles/breakpoints';
+
 .SignInForm {
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   padding: 50px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   background-color: #fff;
   border-radius: 12px;
+
+  @media screen and (max-width: ($tablet - 1px)) {
+    padding: 24px 16px;
+  }
 }
 
 .FormTitle {
@@ -12,10 +18,16 @@
   font-size: 32px;
   line-height: 125%;
   margin-bottom: 24px;
+
+  @media screen and (max-width: ($tablet - 1px)) {
+    font-size: 24px;
+  }
 }
 
 .LoginBtn {
   background-color: #ee5684;
+  height: 40px;
+  font-weight: bold;
 
   &:hover {
     background-color: #ee5684 !important;
@@ -24,6 +36,14 @@
 
 .FormItem {
   margin-bottom: 0;
+}
+
+.SignInInput {
+  &:active,
+  &:hover,
+  &:focus {
+    border-color: var(--auth-bg) !important;
+  }
 }
 
 .Checkbox {
@@ -60,13 +80,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  :global(.sign-up__link) {
-    a {
-      color: #ee5684;
-      font-weight: bold;
-      &:hover {
-        text-decoration: underline;
-      }
+}
+
+.SignUpLink {
+  a {
+    color: #ee5684;
+    font-weight: bold;
+    &:hover {
+      text-decoration: underline;
     }
   }
 }

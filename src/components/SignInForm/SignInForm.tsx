@@ -8,6 +8,19 @@ import { auth } from '../../firebaseConfig';
 import { useAppDispatch } from '../../hooks/redux';
 import styles from './SignInForm.module.scss';
 
+/* eslint-disable no-template-curly-in-string */
+const validateMessages = {
+  required: 'Field is required!',
+  types: {
+    email: '${label} is not a valid email!'
+  },
+  pattern: {
+    mismatch:
+      '${label}: 8 chars min, upper, lower letter, digit and symbol: @$!%*#?&_'
+  }
+};
+/* eslint-enable no-template-curly-in-string */
+
 interface SignInFormValues {
   email: string;
   password: string;
@@ -58,21 +71,28 @@ const SignInForm: FC = () => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete='on'
+        validateMessages={validateMessages}
       >
         <Form.Item
           label='User email'
           name='email'
-          rules={[{ required: true, message: 'Please input your email!' }]}
+          rules={[{ required: true, type: 'email' }]}
         >
-          <Input />
+          <Input className={styles.SignInInput} />
         </Form.Item>
 
         <Form.Item
           label='Password'
           name='password'
-          rules={[{ required: true, message: 'Please input your password!' }]}
+          rules={[
+            {
+              required: true,
+              pattern:
+                /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&_])[A-Za-z\d@$!%*#?&_]{8,}$/
+            }
+          ]}
         >
-          <Input.Password />
+          <Input.Password className={styles.SignInInput} />
         </Form.Item>
 
         <Form.Item name='remember' valuePropName='checked'>
@@ -89,7 +109,7 @@ const SignInForm: FC = () => {
               LOGIN
             </Button>
           </Form.Item>
-          <div className='sign-up__link'>
+          <div className={styles.SignUpLink}>
             Need an account? <Link to='/register'>SIGN UP</Link>
           </div>
         </div>
