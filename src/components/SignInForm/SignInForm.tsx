@@ -74,6 +74,7 @@ const SignInForm: FC = () => {
         validateMessages={validateMessages}
       >
         <Form.Item
+          className={styles.FormItem}
           label='User email'
           name='email'
           rules={[{ required: true, type: 'email' }]}
@@ -82,6 +83,7 @@ const SignInForm: FC = () => {
         </Form.Item>
 
         <Form.Item
+          className={styles.FormItem}
           label='Password'
           name='password'
           rules={[
@@ -95,12 +97,16 @@ const SignInForm: FC = () => {
           <Input.Password className={styles.SignInInput} />
         </Form.Item>
 
-        <Form.Item name='remember' valuePropName='checked'>
+        <Form.Item
+          name='remember'
+          valuePropName='checked'
+          className={styles.FormItem}
+        >
           <Checkbox className={styles.Checkbox}>Remember me</Checkbox>
         </Form.Item>
 
         <div className={styles.SubmitSection}>
-          <Form.Item className={styles.FormItem}>
+          <Form.Item className={styles.FormLoginItem}>
             <Button
               className={styles.LoginBtn}
               type='primary'
