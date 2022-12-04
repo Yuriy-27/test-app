@@ -82,30 +82,34 @@ const SignUpForm: FC = () => {
         validateMessages={validateMessages}
       >
         <Form.Item
+          className={styles.FormItem}
           label='User name'
           name='name'
           rules={[{ required: true, whitespace: true, min: 2 }]}
         >
-          <Input />
+          <Input className={styles.SignUpInput} />
         </Form.Item>
 
         <Form.Item
+          className={styles.FormItem}
           label='User surname'
           name='surname'
           rules={[{ required: true, whitespace: true }]}
         >
-          <Input />
+          <Input className={styles.SignUpInput} />
         </Form.Item>
 
         <Form.Item
+          className={styles.FormItem}
           label='User email'
           name='email'
           rules={[{ required: true, type: 'email' }]}
         >
-          <Input />
+          <Input className={styles.SignUpInput} />
         </Form.Item>
 
         <Form.Item
+          className={styles.FormItem}
           label='User password'
           name='password'
           rules={[
@@ -116,16 +120,20 @@ const SignUpForm: FC = () => {
             }
           ]}
         >
-          <Input.Password />
+          <Input.Password className={styles.SignUpInput} />
         </Form.Item>
 
         <div className={styles.SubmitSection}>
-          <Form.Item className={styles.FormItem}>
-            <Button type='primary' htmlType='submit'>
-              Submit
+          <Form.Item className={styles.FormRegisterItem}>
+            <Button
+              type='primary'
+              htmlType='submit'
+              className={styles.SignUpBtn}
+            >
+              Sign Up
             </Button>
           </Form.Item>
-          <div className='sign-in__link'>
+          <div className={styles.SignInLink}>
             Already have an account? <Link to='/login'>Sign In</Link>
           </div>
         </div>

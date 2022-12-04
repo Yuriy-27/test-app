@@ -1,20 +1,37 @@
+@import '../../styles/breakpoints';
+
 .SignUpForm {
   width: 100%;
   max-width: 600px;
   padding: 50px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 12px;
+  background-color: #fff;
 }
 
 .FormTitle {
-  font-size: 40px;
+  font-weight: bold;
+  font-size: 32px;
   line-height: 125%;
-  text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
 }
 
 .FormItem {
+  margin-bottom: 16px;
+}
+
+.FormRegisterItem {
   margin-bottom: 0;
+}
+
+.SignUpInput {
+  padding: 8px 11px;
+  &:active,
+  &:hover,
+  &:focus {
+    border-color: var(--main-bg) !important;
+  }
 }
 
 .SubmitSection {
@@ -22,4 +39,55 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.SignUpBtn {
+  background-color: #ee5684;
+  height: 40px;
+  font-weight: bold;
+  text-transform: uppercase;
+
+  &:hover {
+    background-color: #ee5684 !important;
+    width: 100%;
+  }
+}
+
+.SignInLink {
+  a {
+    color: #ee5684;
+    font-weight: bold;
+    text-transform: uppercase;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+@media screen and (max-width: ($tablet - 1px)) {
+  .SignUpForm {
+    padding: 24px 16px;
+  }
+
+  .FormTitle {
+    font-size: 24px;
+  }
+
+  .FormItem {
+    width: 100%;
+  }
+
+  .FormRegisterItem {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .SubmitSection {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .SignUpBtn {
+    width: 100%;
+  }
 }
