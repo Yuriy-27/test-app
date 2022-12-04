@@ -1,6 +1,6 @@
 import { Button, Checkbox, Form, Input } from 'antd';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { login } from '../../features/userSlice';
@@ -27,8 +27,14 @@ interface SignInFormValues {
 }
 
 const SignInForm: FC = () => {
+  const [form] = Form.useForm();
+  const [, forceUpdate] = useState({});
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
   const onFinish = (values: SignInFormValues) => {
     signInWithEmailAndPassword(auth, values.email, values.password)
@@ -53,18 +59,19 @@ const SignInForm: FC = () => {
         navigate('/');
       })
       .catch((err) => {
-        console.log(err);
+        onFinishFailed(err);
       });
   };
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
-  };
+  useEffect(() => {
+    forceUpdate({});
+  }, []);
 
   return (
     <div className={`${styles.SignInForm}`} data-testid='SignInForm'>
       <div className={`${styles.FormTitle}`}>LOGIN</div>
       <Form
+        form={form}
         name='signIn'
         layout='vertical'
         initialValues={{ remember: true }}
@@ -106,14 +113,25 @@ const SignInForm: FC = () => {
         </Form.Item>
 
         <div className={styles.SubmitSection}>
-          <Form.Item className={styles.FormLoginItem}>
-            <Button
-              className={styles.LoginBtn}
-              type='primary'
-              htmlType='submit'
-            >
-              LOGIN
-            </Button>
+          <Form.Item className={styles.FormLoginItem} shouldUpdate>
+            {() => {
+              return (
+                <Button
+                  className={styles.LoginBtn}
+                  type='primary'
+                  htmlType='submit'
+                  disabled={
+                    !form.isFieldTouched('email') ||
+                    !form.isFieldTouched('password') ||
+                    !!form
+                      .getFieldsError()
+                      .filter(({ errors }) => errors.length).length
+                  }
+                >
+                  LOGIN
+                </Button>
+              );
+            }}
           </Form.Item>
           <div className={styles.SignUpLink}>
             Need an account? <Link to='/register'>SIGN UP</Link>

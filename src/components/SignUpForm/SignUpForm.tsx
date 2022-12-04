@@ -1,6 +1,6 @@
 import { Button, Form, Input } from 'antd';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { login } from '../../features/userSlice';
@@ -32,8 +32,14 @@ interface SignUpFormValues {
 }
 
 const SignUpForm: FC = () => {
+  const [form] = Form.useForm();
+  const [, forceUpdate] = useState({});
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
 
   const onFinish = (values: SignUpFormValues) => {
     createUserWithEmailAndPassword(auth, values.email, values.password)
@@ -62,18 +68,19 @@ const SignUpForm: FC = () => {
         navigate('/');
       })
       .catch((err) => {
-        console.log(err);
+        onFinishFailed(err);
       });
   };
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
-  };
+  useEffect(() => {
+    forceUpdate({});
+  }, []);
 
   return (
     <div className={`${styles.SignUpForm}`} data-testid='SignUpForm'>
       <div className={`${styles.FormTitle}`}>Sign Up</div>
       <Form
+        form={form}
         name='signUp'
         layout='vertical'
         onFinish={onFinish}
@@ -124,14 +131,24 @@ const SignUpForm: FC = () => {
         </Form.Item>
 
         <div className={styles.SubmitSection}>
-          <Form.Item className={styles.FormRegisterItem}>
-            <Button
-              type='primary'
-              htmlType='submit'
-              className={styles.SignUpBtn}
-            >
-              Sign Up
-            </Button>
+          <Form.Item className={styles.FormRegisterItem} shouldUpdate>
+            {() => {
+              return (
+                <Button
+                  type='primary'
+                  htmlType='submit'
+                  className={styles.SignUpBtn}
+                  disabled={
+                    !form.isFieldsTouched(true) ||
+                    !!form
+                      .getFieldsError()
+                      .filter(({ errors }) => errors.length).length
+                  }
+                >
+                  Sign Up
+                </Button>
+              );
+            }}
           </Form.Item>
           <div className={styles.SignInLink}>
             Already have an account? <Link to='/login'>Sign In</Link>
